@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inkwell — A Premium Blog</title>
+  <meta name="description" content="Inkwell is a premium blog platform for thoughtful writing on design, technology, culture, and more." />
+  <meta property="og:title" content="Inkwell — A Premium Blog" />
+  <meta property="og:description" content="Thoughtful writing on design, technology, and culture." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="page-loader" id="loader">
+  <div class="loader-logo">Ink<em>well</em></div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">✒</div>
+      Ink<em>well</em>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/blog.html">Blog</a></li>
+      <li><a href="pages/about.html">About</a></li>
+      <li><a href="pages/contact.html">Contact</a></li>
+      <li><a href="pages/admin.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+      <a href="pages/blog.html" class="btn btn-primary btn-sm">Read Articles</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="pages/blog.html">Blog</a>
+  <a href="pages/about.html">About</a>
+  <a href="pages/contact.html">Contact</a>
+  <a href="pages/admin.html">Dashboard</a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left -->
+      <div class="hero-content">
+        <div class="hero-eyebrow">✦ Welcome to Inkwell</div>
+        <h1>Where <em>Ideas</em><br>Find Their Voice</h1>
+        <p class="hero-desc">Thoughtful essays on design, technology, culture, and the human condition. Written with care. Read with intention.</p>
+        <div class="hero-actions">
+          <a href="pages/blog.html" class="btn btn-primary btn-lg">Explore Articles →</a>
+          <a href="pages/about.html" class="btn btn-outline btn-lg">About the Author</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">248+</div>
+            <div class="hero-stat-label">Articles Published</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">62K</div>
+            <div class="hero-stat-label">Monthly Readers</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">18K</div>
+            <div class="hero-stat-label">Newsletter Subscribers</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Featured Card -->
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hero-featured-card">
+            <div class="hero-card-img">
+              <div class="hero-card-img-placeholder">🎨</div>
+            </div>
+            <div class="hero-card-body">
+              <span class="tag">Design</span>
+              <h3>The Art of Intentional Design in the Age of Noise</h3>
+              <p>How minimalism became the ultimate luxury in a world drowning in distraction.</p>
+              <div class="hero-card-meta">
+                <div class="author-mini">
+                  <div class="author-avatar">AK</div>
+                  Alex Kim · Apr 12
+                </div>
+                <span class="read-time">8 min read</span>
+              </div>
+            </div>
+          </div>
+          <!-- Floating badges -->
+          <div class="floating-card floating-card-1">
+            <span>📈</span>
+            <div>
+              <div class="float-num">+24%</div>
+              <div style="font-size:0.75rem;color:var(--text-muted)">Readers this month</div>
+            </div>
+          </div>
+          <div class="floating-card floating-card-2">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:2px">Trending Now</div>
+              <div style="font-size:0.88rem;font-weight:600">AI &amp; Creativity →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FEATURED POSTS
+═══════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-alt)">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Featured Writing</div>
+      <h2 style="margin-bottom:48px">Stories Worth Your Time</h2>
+    </div>
+    <div class="featured-grid">
+      <!-- Card 1 (large) -->
+      <div class="blog-card reveal">
+        <div class="blog-card-img">
+          <div class="blog-card-img-placeholder">🌊</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Technology</span><span class="tag">AI</span></div>
+          <h3><a href="pages/blog-post.html">The Quiet Revolution: How Artificial Intelligence Is Rewriting Human Creativity</a></h3>
+          <p>For centuries, creativity was considered the final frontier of human uniqueness. Then came the machines. But rather than replace us, AI is revealing something surprising about the nature of creation itself.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini">
+              <div class="author-avatar">MR</div>
+              Maya Russo · Mar 28 · 12 min
+            </div>
+            <a href="pages/blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="blog-card reveal reveal-delay-1">
+        <div class="blog-card-img">
+          <div class="blog-card-img-placeholder">🏙️</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Culture</span></div>
+          <h3><a href="pages/blog-post.html">Slow Cities: Rediscovering the Joy of Getting Lost</a></h3>
+          <p>A meditation on walking, wonder, and the cities that teach us to be present again.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini">
+              <div class="author-avatar">JT</div>
+              James Tao · Mar 21
+            </div>
+            <a href="pages/blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="blog-card reveal reveal-delay-2">
+        <div class="blog-card-img">
+          <div class="blog-card-img-placeholder">📚</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Lifestyle</span></div>
+          <h3><a href="pages/blog-post.html">Reading as Resistance in a Scroll-First World</a></h3>
+          <p>The radical act of sitting with a book — and why depth is the new luxury.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini">
+              <div class="author-avatar">SL</div>
+              Sara Liu · Mar 14
+            </div>
+            <a href="pages/blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px" class="reveal">
+      <a href="pages/blog.html" class="btn btn-outline">View All Articles →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CATEGORIES
+═══════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:48px">
+      <div class="section-label" style="justify-content:center">Explore Topics</div>
+      <h2>Find Your Corner<br>of the Conversation</h2>
+    </div>
+    <div class="categories-grid">
+      <a href="pages/blog.html" class="category-card reveal">
+        <div class="cat-icon">🎨</div>
+        <h4>Design</h4>
+        <p>Visual thinking, aesthetics, and the craft of making beautiful things.</p>
+        <span class="cat-count">42 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal reveal-delay-1">
+        <div class="cat-icon">💻</div>
+        <h4>Technology</h4>
+        <p>AI, software, the future of work, and digital life.</p>
+        <span class="cat-count">67 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal reveal-delay-2">
+        <div class="cat-icon">🌍</div>
+        <h4>Culture</h4>
+        <p>Society, travel, ideas, and the stories that define us.</p>
+        <span class="cat-count">58 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal reveal-delay-3">
+        <div class="cat-icon">🧘</div>
+        <h4>Lifestyle</h4>
+        <p>Mindfulness, productivity, wellness, and living well.</p>
+        <span class="cat-count">34 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal reveal-delay-4">
+        <div class="cat-icon">📈</div>
+        <h4>Business</h4>
+        <p>Entrepreneurship, strategy, and the economics of ideas.</p>
+        <span class="cat-count">29 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal reveal-delay-5">
+        <div class="cat-icon">✍️</div>
+        <h4>Writing</h4>
+        <p>The craft of words, storytelling, and finding your voice.</p>
+        <span class="cat-count">18 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal">
+        <div class="cat-icon">🔬</div>
+        <h4>Science</h4>
+        <p>Discoveries, breakthroughs, and the wonder of the natural world.</p>
+        <span class="cat-count">22 Articles</span>
+      </a>
+      <a href="pages/blog.html" class="category-card reveal reveal-delay-1">
+        <div class="cat-icon">🎵</div>
+        <h4>Arts</h4>
+        <p>Music, film, photography, and creative expression.</p>
+        <span class="cat-count">31 Articles</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     RECENT POSTS STRIP
+═══════════════════════════════════════════ -->
+<section class="section-sm" style="background:var(--bg-alt);border-top:1px solid var(--border-light)">
+  <div class="container">
+    <div class="flex justify-between items-center" style="margin-bottom:32px">
+      <div>
+        <div class="section-label">Latest</div>
+        <h3 style="margin:0">Fresh from the Press</h3>
+      </div>
+      <a href="pages/blog.html" class="btn btn-ghost">See all →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+      <!-- Mini cards -->
+      <div class="blog-card reveal" style="flex-direction:row;align-items:center;padding:0">
+        <div style="width:100px;height:100px;flex-shrink:0;background:var(--bg);border-radius:var(--radius-lg) 0 0 var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:2rem;opacity:0.3">🌿</div>
+        <div style="padding:16px">
+          <div style="font-size:0.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Lifestyle</div>
+          <h4 style="font-size:0.92rem;margin-bottom:4px;line-height:1.3"><a href="pages/blog-post.html">Morning Routines of the Remarkably Calm</a></h4>
+          <span style="font-size:0.75rem;color:var(--text-light)">5 min read</span>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-1" style="flex-direction:row;align-items:center;padding:0">
+        <div style="width:100px;height:100px;flex-shrink:0;background:var(--bg);border-radius:var(--radius-lg) 0 0 var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:2rem;opacity:0.3">🤖</div>
+        <div style="padding:16px">
+          <div style="font-size:0.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Technology</div>
+          <h4 style="font-size:0.92rem;margin-bottom:4px;line-height:1.3"><a href="pages/blog-post.html">Why Every Developer Needs a Philosophy of AI</a></h4>
+          <span style="font-size:0.75rem;color:var(--text-light)">9 min read</span>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-2" style="flex-direction:row;align-items:center;padding:0">
+        <div style="width:100px;height:100px;flex-shrink:0;background:var(--bg);border-radius:var(--radius-lg) 0 0 var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:2rem;opacity:0.3">🖋️</div>
+        <div style="padding:16px">
+          <div style="font-size:0.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Writing</div>
+          <h4 style="font-size:0.92rem;margin-bottom:4px;line-height:1.3"><a href="pages/blog-post.html">On the Courage to Write the Ugly First Draft</a></h4>
+          <span style="font-size:0.75rem;color:var(--text-light)">6 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:48px">
+      <div class="section-label" style="justify-content:center">Reader Love</div>
+      <h2>What Our Community Says</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Inkwell is the only newsletter I read every single week without fail. The writing is sharp, the ideas are fresh, and the depth is just unmatched."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar">EC</div>
+          <div>
+            <div class="t-name">Elena Chen</div>
+            <div class="t-role">Senior Product Designer, Figma</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I've recommended Inkwell to everyone on my team. It's the kind of thoughtful, long-form content the internet desperately needs more of."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar">MW</div>
+          <div>
+            <div class="t-name">Marcus Webb</div>
+            <div class="t-role">Founder, Clarity Studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The technology coverage here is the best I've found. It's nuanced, well-researched, and never dumbed down. A genuine intellectual treat."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar">PK</div>
+          <div>
+            <div class="t-name">Priya Kapoor</div>
+            <div class="t-role">AI Research Engineer, DeepMind</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     NEWSLETTER
+═══════════════════════════════════════════ -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-inner reveal">
+      <div class="section-label" style="color:rgba(255,255,255,0.5);justify-content:center">Stay in the Loop</div>
+      <h2>Join 18,000 Curious Minds</h2>
+      <p>Get the best of Inkwell delivered to your inbox every Tuesday. No fluff, no spam — just ideas worth your time.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="your@email.com" aria-label="Email address" />
+        <button type="submit" class="btn btn-accent">Subscribe Free</button>
+      </form>
+      <div class="newsletter-trust">🔒 No spam ever. Unsubscribe anytime.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">✒</div>
+          Ink<em>well</em>
+        </a>
+        <p>A premium home for thoughtful writing on design, technology, culture, and the ideas that matter most.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="Instagram">◻</a>
+          <a href="#" class="social-link" aria-label="RSS">⌁</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="pages/blog.html">All Articles</a></li>
+          <li><a href="pages/blog.html">Design</a></li>
+          <li><a href="pages/blog.html">Technology</a></li>
+          <li><a href="pages/blog.html">Culture</a></li>
+          <li><a href="pages/blog.html">Lifestyle</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="pages/about.html">About</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+          <li><a href="#">Write for Us</a></li>
+          <li><a href="#">Advertise</a></li>
+          <li><a href="#">Press Kit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Inkwell. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

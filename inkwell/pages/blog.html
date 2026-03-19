@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Inkwell</title>
+  <meta name="description" content="Browse all articles on design, technology, culture, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div class="page-loader" id="loader"><div class="loader-logo">Ink<em>well</em></div></div>
+<button class="back-top" id="backTop">↑</button>
+
+<nav class="nav scrolled" id="mainNav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo"><div class="logo-icon">✒</div>Ink<em>well</em></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../index.html">Home</a><a href="blog.html">Blog</a>
+  <a href="about.html">About</a><a href="contact.html">Contact</a><a href="admin.html">Dashboard</a>
+</div>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Blog</span></div>
+    <h1>All Articles</h1>
+    <p>Thoughtful writing on design, technology, culture, and the ideas that shape our world.</p>
+  </div>
+</header>
+
+<!-- BLOG LISTING -->
+<section class="section blog-listing">
+  <div class="container">
+    <!-- Toolbar -->
+    <div class="blog-toolbar reveal">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="blogSearch" placeholder="Search articles…" aria-label="Search" />
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="design">Design</button>
+        <button class="filter-tab" data-filter="technology">Technology</button>
+        <button class="filter-tab" data-filter="culture">Culture</button>
+        <button class="filter-tab" data-filter="lifestyle">Lifestyle</button>
+        <button class="filter-tab" data-filter="business">Business</button>
+        <button class="filter-tab" data-filter="writing">Writing</button>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="blog-grid" id="blogGrid">
+      <!-- Post 1 -->
+      <div class="blog-card reveal" data-category="technology">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">🤖</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Technology</span><span class="tag">AI</span></div>
+          <h3><a href="blog-post.html">The Quiet Revolution: How AI Is Rewriting Human Creativity</a></h3>
+          <p>For centuries, creativity was considered the final frontier of human uniqueness. Then came the machines.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">MR</div>Maya Russo · Mar 28 · 12 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 2 -->
+      <div class="blog-card reveal reveal-delay-1" data-category="design">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">🎨</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Design</span></div>
+          <h3><a href="blog-post.html">The Art of Intentional Design in the Age of Noise</a></h3>
+          <p>How minimalism became the ultimate luxury in a world drowning in distraction and infinite options.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">AK</div>Alex Kim · Apr 12 · 8 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 3 -->
+      <div class="blog-card reveal reveal-delay-2" data-category="culture">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">🏙️</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Culture</span></div>
+          <h3><a href="blog-post.html">Slow Cities: Rediscovering the Joy of Getting Lost</a></h3>
+          <p>A meditation on walking, wonder, and the cities that teach us to be present again.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">JT</div>James Tao · Mar 21 · 7 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 4 -->
+      <div class="blog-card reveal" data-category="lifestyle">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">🧘</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Lifestyle</span></div>
+          <h3><a href="blog-post.html">Morning Routines of the Remarkably Calm</a></h3>
+          <p>What separates peaceful mornings from chaotic ones? Six habits from people who've figured it out.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">SL</div>Sara Liu · Mar 14 · 5 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 5 -->
+      <div class="blog-card reveal reveal-delay-1" data-category="business">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">📈</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Business</span></div>
+          <h3><a href="blog-post.html">Why the Best Companies Bet on Boredom</a></h3>
+          <p>The counterintuitive strategy of the most durable businesses: choosing depth over novelty.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">DM</div>David Moon · Apr 2 · 10 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 6 -->
+      <div class="blog-card reveal reveal-delay-2" data-category="writing">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">✍️</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Writing</span></div>
+          <h3><a href="blog-post.html">On the Courage to Write the Ugly First Draft</a></h3>
+          <p>Every great piece of writing began as something embarrassing. Here's how to embrace that truth.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">NP</div>Nina Park · Mar 7 · 6 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 7 -->
+      <div class="blog-card reveal" data-category="technology">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">💻</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Technology</span></div>
+          <h3><a href="blog-post.html">Why Every Developer Needs a Philosophy of AI</a></h3>
+          <p>The engineers building tomorrow's tools need more than technical skills — they need ethical frameworks.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">TR</div>Tom Reed · Apr 5 · 9 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 8 -->
+      <div class="blog-card reveal reveal-delay-1" data-category="design">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">🖌️</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Design</span></div>
+          <h3><a href="blog-post.html">Typography as Tone: Writing With Type</a></h3>
+          <p>Fonts carry emotional weight. Choosing the wrong one can undermine your message before a word is read.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">AK</div>Alex Kim · Apr 18 · 6 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Post 9 -->
+      <div class="blog-card reveal reveal-delay-2" data-category="culture">
+        <div class="blog-card-img"><div class="blog-card-img-placeholder">📚</div></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tags"><span class="tag">Culture</span></div>
+          <h3><a href="blog-post.html">Reading as Resistance in a Scroll-First World</a></h3>
+          <p>The radical act of sitting with a book — and why depth is the new luxury in our distracted era.</p>
+          <div class="blog-card-footer">
+            <div class="author-mini"><div class="author-avatar">MR</div>Maya Russo · Mar 1 · 8 min</div>
+            <a href="blog-post.html" class="read-more">Read →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div id="noResults" class="no-results" style="display:none">
+        <div class="no-results-icon">🔍</div>
+        <h3>No articles found</h3>
+        <p>Try a different search term or category filter.</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination reveal" id="pagination">
+      <button class="page-btn arrow">←</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <span style="color:var(--text-light);padding:0 4px">…</span>
+      <button class="page-btn">12</button>
+      <button class="page-btn arrow">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="section-label" style="color:rgba(255,255,255,0.5);justify-content:center">Never Miss a Post</div>
+      <h2>Get New Articles in Your Inbox</h2>
+      <p>Join 18,000 subscribers. Weekly, thoughtful, worth it.</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="your@email.com" />
+        <button type="submit" class="btn btn-accent">Subscribe Free</button>
+      </form>
+      <div class="newsletter-trust">🔒 No spam. Unsubscribe anytime.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo"><div class="logo-icon">✒</div>Ink<em>well</em></a>
+        <p>A premium home for thoughtful writing on design, technology, culture, and the ideas that matter most.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">𝕏</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">◻</a>
+          <a href="#" class="social-link">⌁</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="blog.html">All Articles</a></li><li><a href="blog.html">Design</a></li>
+        <li><a href="blog.html">Technology</a></li><li><a href="blog.html">Culture</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+        <li><a href="#">Write for Us</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Inkwell. All rights reserved.</span>
+      <div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>window.addEventListener('DOMContentLoaded', () => window.initBlogSearch());</script>
+</body>
+</html>

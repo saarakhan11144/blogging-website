@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Inkwell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* Mini chart bars */
+    .mini-chart { display:flex; gap:3px; align-items:flex-end; height:36px; }
+    .mini-bar {
+      flex:1; border-radius:3px 3px 0 0;
+      background: var(--accent); opacity:0.3;
+      transition: opacity 0.2s;
+    }
+    .mini-bar:hover { opacity:1; }
+    .mini-bar.active { opacity:1; }
+    /* Activity feed */
+    .activity-feed { display:flex; flex-direction:column; gap:0; }
+    .activity-item {
+      display:flex; gap:14px; align-items:flex-start;
+      padding:14px 0; border-bottom:1px solid var(--border-light);
+    }
+    .activity-item:last-child { border-bottom:none; }
+    .activity-dot {
+      width:10px; height:10px; border-radius:50%; margin-top:5px;
+      flex-shrink:0; background:var(--accent);
+    }
+    .activity-dot.blue { background:var(--blue); }
+    .activity-dot.green { background:var(--green); }
+    .activity-dot.red { background:var(--red); }
+    .activity-text { font-size:0.88rem; color:var(--text-muted); flex:1; }
+    .activity-text strong { color:var(--text); }
+    .activity-time { font-size:0.75rem; color:var(--text-light); white-space:nowrap; }
+    /* Tags input */
+    .tags-input {
+      display:flex; flex-wrap:wrap; gap:6px; align-items:center;
+      padding:8px 12px; border:1px solid var(--border); border-radius:var(--radius-sm);
+      background:var(--bg); min-height:44px; cursor:text;
+    }
+    .tags-input:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-light); }
+    .tag-pill {
+      display:flex; align-items:center; gap:4px;
+      background:var(--accent-light); color:var(--accent);
+      padding:2px 10px; border-radius:100px; font-size:0.78rem; font-weight:600;
+    }
+    .tag-remove { cursor:pointer; opacity:0.6; }
+    .tag-remove:hover { opacity:1; }
+    .tags-input input {
+      flex:1; min-width:80px; border:none; outline:none;
+      background:transparent; color:var(--text); font-size:0.88rem;
+    }
+    /* Seo score */
+    .seo-score {
+      display:flex; align-items:center; gap:12px; margin-top:8px;
+    }
+    .seo-bar { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .seo-fill { height:100%; border-radius:3px; background:var(--green); }
+    /* Stats sparkline */
+    .sparkline { display:flex; gap:2px; align-items:flex-end; height:24px; }
+    .spark-bar { width:4px; border-radius:2px; background:var(--accent); opacity:0.5; }
+    .spark-bar:last-child { opacity:1; }
+  </style>
+</head>
+<body>
+
+<div class="page-loader" id="loader"><div class="loader-logo">Ink<em>well</em></div></div>
+<button class="back-top" id="backTop">↑</button>
+
+<!-- TOP NAV (admin variant) -->
+<nav class="nav scrolled" id="mainNav" style="background:var(--surface-glass);backdrop-filter:blur(20px)">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo"><div class="logo-icon">✒</div>Ink<em>well</em></a>
+    <div style="font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);display:flex;align-items:center;gap:8px">
+      <span style="padding:3px 10px;border-radius:100px;background:var(--accent);color:white;font-size:0.7rem">Admin</span>
+      Dashboard
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <a href="../index.html" class="btn btn-ghost btn-sm">← Back to Site</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ADMIN LAYOUT -->
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="admin-nav-section">
+      <div class="admin-nav-label">Main</div>
+      <div class="admin-nav-item active" data-panel="overview">
+        <span>📊</span> Overview
+      </div>
+      <div class="admin-nav-item" data-panel="posts">
+        <span>📄</span> All Posts
+        <span class="nav-badge">12</span>
+      </div>
+      <div class="admin-nav-item" data-panel="new-post">
+        <span>✏️</span> New Post
+      </div>
+      <div class="admin-nav-item" data-panel="drafts">
+        <span>📝</span> Drafts
+        <span class="nav-badge">3</span>
+      </div>
+    </div>
+    <div class="admin-nav-section">
+      <div class="admin-nav-label">Content</div>
+      <div class="admin-nav-item" data-panel="categories">
+        <span>🏷</span> Categories
+      </div>
+      <div class="admin-nav-item" data-panel="comments">
+        <span>💬</span> Comments
+        <span class="nav-badge">7</span>
+      </div>
+      <div class="admin-nav-item" data-panel="media">
+        <span>🖼</span> Media Library
+      </div>
+    </div>
+    <div class="admin-nav-section">
+      <div class="admin-nav-label">Audience</div>
+      <div class="admin-nav-item" data-panel="subscribers">
+        <span>📧</span> Subscribers
+      </div>
+      <div class="admin-nav-item" data-panel="analytics">
+        <span>📈</span> Analytics
+      </div>
+    </div>
+    <div class="admin-nav-section">
+      <div class="admin-nav-label">System</div>
+      <div class="admin-nav-item" data-panel="settings">
+        <span>⚙️</span> Settings
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- ═══ OVERVIEW PANEL ═══ -->
+    <div id="panel-overview" class="admin-panel">
+      <div class="admin-topbar">
+        <div>
+          <h1>Good morning, Alex 👋</h1>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-top:4px">Here's what's happening with Inkwell today.</p>
+        </div>
+        <a href="#" class="btn btn-primary" onclick="document.querySelector('[data-panel=new-post]').click();return false">+ New Post</a>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-icon" style="background:rgba(74,127,212,0.12);color:var(--blue)">👁</div>
+            <div class="stat-change up">↑ 18%</div>
+          </div>
+          <div class="stat-num">62,841</div>
+          <div class="stat-label">Page Views (this month)</div>
+          <div class="sparkline" style="margin-top:12px">
+            <div class="spark-bar" style="height:40%"></div>
+            <div class="spark-bar" style="height:55%"></div>
+            <div class="spark-bar" style="height:45%"></div>
+            <div class="spark-bar" style="height:70%"></div>
+            <div class="spark-bar" style="height:60%"></div>
+            <div class="spark-bar" style="height:85%"></div>
+            <div class="spark-bar" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-icon" style="background:rgba(201,168,76,0.12);color:var(--accent)">👥</div>
+            <div class="stat-change up">↑ 12%</div>
+          </div>
+          <div class="stat-num">18,412</div>
+          <div class="stat-label">Newsletter Subscribers</div>
+          <div class="sparkline" style="margin-top:12px">
+            <div class="spark-bar" style="height:50%"></div>
+            <div class="spark-bar" style="height:60%"></div>
+            <div class="spark-bar" style="height:70%"></div>
+            <div class="spark-bar" style="height:65%"></div>
+            <div class="spark-bar" style="height:80%"></div>
+            <div class="spark-bar" style="height:88%"></div>
+            <div class="spark-bar" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-icon" style="background:rgba(76,175,125,0.12);color:var(--green)">📄</div>
+            <div class="stat-change up">+3</div>
+          </div>
+          <div class="stat-num">248</div>
+          <div class="stat-label">Posts Published</div>
+          <div class="sparkline" style="margin-top:12px">
+            <div class="spark-bar" style="height:30%"></div>
+            <div class="spark-bar" style="height:50%"></div>
+            <div class="spark-bar" style="height:45%"></div>
+            <div class="spark-bar" style="height:65%"></div>
+            <div class="spark-bar" style="height:70%"></div>
+            <div class="spark-bar" style="height:75%"></div>
+            <div class="spark-bar" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-icon" style="background:rgba(214,76,76,0.12);color:var(--red)">💬</div>
+            <div class="stat-change down">↓ 4%</div>
+          </div>
+          <div class="stat-num">1,247</div>
+          <div class="stat-label">Comments (total)</div>
+          <div class="sparkline" style="margin-top:12px">
+            <div class="spark-bar" style="height:80%"></div>
+            <div class="spark-bar" style="height:90%"></div>
+            <div class="spark-bar" style="height:100%"></div>
+            <div class="spark-bar" style="height:70%"></div>
+            <div class="spark-bar" style="height:60%"></div>
+            <div class="spark-bar" style="height:65%"></div>
+            <div class="spark-bar" style="height:62%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two Columns -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <!-- Recent Posts -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>Recent Posts</h3>
+            <button class="btn btn-ghost btn-sm" onclick="document.querySelector('[data-panel=posts]').click()">View all</button>
+          </div>
+          <div class="admin-post-table">
+            <div class="table-row">
+              <div class="post-title-cell">
+                <div class="post-thumb-sm">🤖</div>
+                <div><div class="post-title-text">The Quiet Revolution: How AI Is Rewriting Creativity</div>
+                <div class="post-title-meta">Mar 28 · Technology</div></div>
+              </div>
+              <div><span class="status-badge published">Published</span></div>
+              <div style="font-size:0.82rem;color:var(--text-muted)">14.2K views</div>
+              <div class="table-actions">
+                <button class="action-btn edit" title="Edit">✏</button>
+                <button class="action-btn delete" title="Delete">🗑</button>
+              </div>
+            </div>
+            <div class="table-row">
+              <div class="post-title-cell">
+                <div class="post-thumb-sm">🎨</div>
+                <div><div class="post-title-text">The Art of Intentional Design in the Age of Noise</div>
+                <div class="post-title-meta">Apr 12 · Design</div></div>
+              </div>
+              <div><span class="status-badge published">Published</span></div>
+              <div style="font-size:0.82rem;color:var(--text-muted)">9.8K views</div>
+              <div class="table-actions">
+                <button class="action-btn edit">✏</button>
+                <button class="action-btn delete">🗑</button>
+              </div>
+            </div>
+            <div class="table-row">
+              <div class="post-title-cell">
+                <div class="post-thumb-sm">📝</div>
+                <div><div class="post-title-text">The Future of Remote Work Culture [DRAFT]</div>
+                <div class="post-title-meta">Draft · Business</div></div>
+              </div>
+              <div><span class="status-badge draft">Draft</span></div>
+              <div style="font-size:0.82rem;color:var(--text-muted)">—</div>
+              <div class="table-actions">
+                <button class="action-btn edit">✏</button>
+                <button class="action-btn delete">🗑</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>Recent Activity</h3>
+          </div>
+          <div class="sidebar-widget" style="padding:0;border:1px solid var(--border-light)">
+            <div class="activity-feed" style="padding:4px 20px">
+              <div class="activity-item">
+                <div class="activity-dot green"></div>
+                <div class="activity-text"><strong>New subscriber</strong> — elena@design.co joined the newsletter</div>
+                <div class="activity-time">2m ago</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot blue"></div>
+                <div class="activity-text"><strong>New comment</strong> — Marcus Webb on "The Quiet Revolution"</div>
+                <div class="activity-time">14m ago</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot"></div>
+                <div class="activity-text"><strong>Post published</strong> — "Typography as Tone" is live</div>
+                <div class="activity-time">1h ago</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot green"></div>
+                <div class="activity-text"><strong>3 new subscribers</strong> from the AI article referral</div>
+                <div class="activity-time">3h ago</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot red"></div>
+                <div class="activity-text"><strong>Comment flagged</strong> — awaiting moderation review</div>
+                <div class="activity-time">5h ago</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot blue"></div>
+                <div class="activity-text"><strong>62K page views</strong> milestone reached this month</div>
+                <div class="activity-time">Yesterday</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Posts -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <h3>Top Performing Posts</h3>
+          <span style="font-size:0.78rem;color:var(--text-muted)">Last 30 days</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <div class="sidebar-widget">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--accent)">#1</span>
+              <div><div style="font-size:0.85rem;font-weight:600">The Quiet Revolution</div>
+              <div style="font-size:0.75rem;color:var(--text-muted)">Technology</div></div>
+            </div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--text)">14,247</div>
+            <div style="font-size:0.78rem;color:var(--text-muted)">views</div>
+            <div class="mini-chart" style="margin-top:12px">
+              <div class="mini-bar" style="height:40%"></div>
+              <div class="mini-bar" style="height:60%"></div>
+              <div class="mini-bar" style="height:55%"></div>
+              <div class="mini-bar" style="height:80%"></div>
+              <div class="mini-bar active" style="height:100%"></div>
+            </div>
+          </div>
+          <div class="sidebar-widget">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--accent)">#2</span>
+              <div><div style="font-size:0.85rem;font-weight:600">Intentional Design</div>
+              <div style="font-size:0.75rem;color:var(--text-muted)">Design</div></div>
+            </div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--text)">9,812</div>
+            <div style="font-size:0.78rem;color:var(--text-muted)">views</div>
+            <div class="mini-chart" style="margin-top:12px">
+              <div class="mini-bar" style="height:30%"></div>
+              <div class="mini-bar" style="height:45%"></div>
+              <div class="mini-bar" style="height:70%"></div>
+              <div class="mini-bar" style="height:60%"></div>
+              <div class="mini-bar active" style="height:85%"></div>
+            </div>
+          </div>
+          <div class="sidebar-widget">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--accent)">#3</span>
+              <div><div style="font-size:0.85rem;font-weight:600">Reading as Resistance</div>
+              <div style="font-size:0.75rem;color:var(--text-muted)">Culture</div></div>
+            </div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--text)">7,604</div>
+            <div style="font-size:0.78rem;color:var(--text-muted)">views</div>
+            <div class="mini-chart" style="margin-top:12px">
+              <div class="mini-bar" style="height:50%"></div>
+              <div class="mini-bar" style="height:40%"></div>
+              <div class="mini-bar" style="height:65%"></div>
+              <div class="mini-bar" style="height:55%"></div>
+              <div class="mini-bar active" style="height:78%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ALL POSTS PANEL ═══ -->
+    <div id="panel-posts" class="admin-panel hidden">
+      <div class="admin-topbar">
+        <div>
+          <h1>All Posts</h1>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-top:4px">Manage your published and draft articles.</p>
+        </div>
+        <button class="btn btn-primary" onclick="document.querySelector('[data-panel=new-post]').click()">+ New Post</button>
+      </div>
+
+      <!-- Search & Filter -->
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+        <div class="search-box" style="max-width:300px">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Search posts…" />
+        </div>
+        <select class="editor-select" style="width:auto;padding:10px 32px 10px 14px">
+          <option>All Status</option>
+          <option>Published</option>
+          <option>Draft</option>
+          <option>Scheduled</option>
+        </select>
+        <select class="editor-select" style="width:auto;padding:10px 32px 10px 14px">
+          <option>All Categories</option>
+          <option>Design</option>
+          <option>Technology</option>
+          <option>Culture</option>
+          <option>Lifestyle</option>
+        </select>
+      </div>
+
+      <div class="admin-post-table">
+        <div class="table-head">
+          <div>Post</div>
+          <div class="col-category">Category</div>
+          <div>Status</div>
+          <div class="col-views">Views</div>
+          <div>Actions</div>
+        </div>
+        <div class="table-row">
+          <div class="post-title-cell">
+            <div class="post-thumb-sm">🤖</div>
+            <div><div class="post-title-text">The Quiet Revolution: How AI Is Rewriting Human Creativity</div>
+            <div class="post-title-meta">Mar 28, 2025</div></div>
+          </div>
+          <div class="col-category"><span class="tag">Technology</span></div>
+          <div><span class="status-badge published">Published</span></div>
+          <div class="col-views" style="font-size:0.82rem;color:var(--text-muted)">14,247</div>
+          <div class="table-actions">
+            <button class="action-btn edit" title="Edit">✏</button>
+            <button class="action-btn" title="Preview">👁</button>
+            <button class="action-btn delete" title="Delete">🗑</button>
+          </div>
+        </div>
+        <div class="table-row">
+          <div class="post-title-cell">
+            <div class="post-thumb-sm">🎨</div>
+            <div><div class="post-title-text">The Art of Intentional Design in the Age of Noise</div>
+            <div class="post-title-meta">Apr 12, 2025</div></div>
+          </div>
+          <div class="col-category"><span class="tag">Design</span></div>
+          <div><span class="status-badge published">Published</span></div>
+          <div class="col-views" style="font-size:0.82rem;color:var(--text-muted)">9,812</div>
+          <div class="table-actions">
+            <button class="action-btn edit">✏</button>
+            <button class="action-btn">👁</button>
+            <button class="action-btn delete">🗑</button>
+          </div>
+        </div>
+        <div class="table-row">
+          <div class="post-title-cell">
+            <div class="post-thumb-sm">🏙️</div>
+            <div><div class="post-title-text">Slow Cities: Rediscovering the Joy of Getting Lost</div>
+            <div class="post-title-meta">Mar 21, 2025</div></div>
+          </div>
+          <div class="col-category"><span class="tag">Culture</span></div>
+          <div><span class="status-badge published">Published</span></div>
+          <div class="col-views" style="font-size:0.82rem;color:var(--text-muted)">7,604</div>
+          <div class="table-actions">
+            <button class="action-btn edit">✏</button>
+            <button class="action-btn">👁</button>
+            <button class="action-btn delete">🗑</button>
+          </div>
+        </div>
+        <div class="table-row">
+          <div class="post-title-cell">
+            <div class="post-thumb-sm">💼</div>
+            <div><div class="post-title-text">The Future of Remote Work Culture</div>
+            <div class="post-title-meta">Scheduled · May 1, 2025</div></div>
+          </div>
+          <div class="col-category"><span class="tag">Business</span></div>
+          <div><span class="status-badge scheduled">Scheduled</span></div>
+          <div class="col-views" style="font-size:0.82rem;color:var(--text-muted)">—</div>
+          <div class="table-actions">
+            <button class="action-btn edit">✏</button>
+            <button class="action-btn">👁</button>
+            <button class="action-btn delete">🗑</button>
+          </div>
+        </div>
+        <div class="table-row">
+          <div class="post-title-cell">
+            <div class="post-thumb-sm">📝</div>
+            <div><div class="post-title-text">On the Courage to Write the Ugly First Draft</div>
+            <div class="post-title-meta">Draft</div></div>
+          </div>
+          <div class="col-category"><span class="tag">Writing</span></div>
+          <div><span class="status-badge draft">Draft</span></div>
+          <div class="col-views" style="font-size:0.82rem;color:var(--text-muted)">—</div>
+          <div class="table-actions">
+            <button class="action-btn edit">✏</button>
+            <button class="action-btn">👁</button>
+            <button class="action-btn delete">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ NEW POST PANEL ═══ -->
+    <div id="panel-new-post" class="admin-panel hidden">
+      <div class="admin-topbar">
+        <div>
+          <h1>New Post</h1>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-top:4px">Write and publish a new article.</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Saved as draft.','success')">Save Draft</button>
+          <button class="btn btn-accent" id="publishBtn">Publish →</button>
+        </div>
+      </div>
+
+      <div class="editor-body">
+        <!-- Editor -->
+        <div class="editor-form">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="postTitle" placeholder="Post title…"
+              style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;padding:16px;border:none;border-bottom:2px solid var(--border);border-radius:0;background:transparent;width:100%;color:var(--text);outline:none"
+              onfocus="this.style.borderBottomColor='var(--accent)'"
+              onblur="this.style.borderBottomColor='var(--border)'" />
+          </div>
+
+          <div class="form-group" style="margin-bottom:0">
+            <textarea placeholder="Write a short excerpt / description (2–3 sentences)…"
+              style="width:100%;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:0.92rem;resize:none;outline:none;min-height:72px;line-height:1.6"
+              onfocus="this.style.borderColor='var(--accent)'"
+              onblur="this.style.borderColor='var(--border)'"></textarea>
+          </div>
+
+          <!-- Rich Text Area -->
+          <div class="editor-panel">
+            <div class="editor-toolbar">
+              <button class="editor-tool active" title="Bold"><strong>B</strong></button>
+              <button class="editor-tool" title="Italic"><em>I</em></button>
+              <button class="editor-tool" title="Underline"><u>U</u></button>
+              <div class="editor-sep"></div>
+              <button class="editor-tool" title="Heading 1">H1</button>
+              <button class="editor-tool" title="Heading 2">H2</button>
+              <button class="editor-tool" title="Heading 3">H3</button>
+              <div class="editor-sep"></div>
+              <button class="editor-tool" title="Quote">❝</button>
+              <button class="editor-tool" title="Code">&lt;/&gt;</button>
+              <button class="editor-tool" title="Link">🔗</button>
+              <button class="editor-tool" title="Image">🖼</button>
+              <div class="editor-sep"></div>
+              <button class="editor-tool" title="Bullet list">•—</button>
+              <button class="editor-tool" title="Numbered list">1—</button>
+              <div class="editor-sep"></div>
+              <button class="editor-tool" title="Align left">⬅</button>
+              <button class="editor-tool" title="Align center">↔</button>
+              <button class="editor-tool" title="Align right">➡</button>
+              <div style="margin-left:auto;font-size:0.75rem;color:var(--text-muted)" id="wordCount">0 words</div>
+            </div>
+            <textarea class="editor-area" id="editorArea"
+              placeholder="Start writing your article here…
+
+Use the toolbar above to format your content. Press Enter for new paragraphs.
+
+Tips:
+• Keep paragraphs short (3–4 sentences)
+• Use headers to break up long sections  
+• Lead with your most important idea"></textarea>
+          </div>
+        </div>
+
+        <!-- Meta Sidebar -->
+        <div class="editor-meta">
+          <div>
+            <div class="meta-label">Status</div>
+            <select class="editor-select">
+              <option>Draft</option>
+              <option>Published</option>
+              <option>Scheduled</option>
+            </select>
+          </div>
+          <div>
+            <div class="meta-label">Publish Date</div>
+            <input type="datetime-local" class="form-group input"
+              style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);font-size:0.88rem;outline:none" />
+          </div>
+          <div>
+            <div class="meta-label">Category</div>
+            <select class="editor-select">
+              <option value="">Select category…</option>
+              <option>Design</option>
+              <option>Technology</option>
+              <option>Culture</option>
+              <option>Lifestyle</option>
+              <option>Business</option>
+              <option>Writing</option>
+              <option>Science</option>
+            </select>
+          </div>
+          <div>
+            <div class="meta-label">Tags</div>
+            <div class="tags-input" id="tagsInput">
+              <span class="tag-pill">AI<span class="tag-remove" onclick="this.parentElement.remove()">×</span></span>
+              <span class="tag-pill">Technology<span class="tag-remove" onclick="this.parentElement.remove()">×</span></span>
+              <input type="text" placeholder="Add tag…" onkeydown="handleTagInput(event)" />
+            </div>
+          </div>
+          <div>
+            <div class="meta-label">Cover Image</div>
+            <div class="cover-upload" id="coverUpload">
+              <div class="cover-upload-icon">🖼</div>
+              <p>Click to upload or drag &amp; drop</p>
+              <p style="font-size:0.75rem;margin-top:4px">PNG, JPG, WebP up to 10MB</p>
+            </div>
+          </div>
+          <div>
+            <div class="meta-label">SEO Score</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px">Fill in title and content to improve your SEO score.</div>
+            <div class="seo-score">
+              <div style="font-size:0.85rem;font-weight:600;color:var(--green)">Good</div>
+              <div class="seo-bar"><div class="seo-fill" style="width:72%"></div></div>
+              <div style="font-size:0.82rem;color:var(--text-muted)">72</div>
+            </div>
+          </div>
+          <div>
+            <div class="meta-label">Reading Time</div>
+            <div style="font-size:0.88rem;color:var(--text-muted)">Est. <strong id="readTime">—</strong> min read</div>
+          </div>
+          <button class="btn btn-accent" id="publishBtn2" onclick="document.getElementById('publishBtn').click()" style="justify-content:center">Publish Post →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OTHER PANELS (placeholder) -->
+    <div id="panel-drafts" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Drafts</h1></div>
+      <div style="text-align:center;padding:80px 0">
+        <div style="font-size:4rem;margin-bottom:16px">📝</div>
+        <h3>3 Drafts in Progress</h3>
+        <p style="color:var(--text-muted);margin-top:8px">Pick up where you left off.</p>
+        <button class="btn btn-primary" style="margin-top:24px" onclick="document.querySelector('[data-panel=new-post]').click()">+ New Post</button>
+      </div>
+    </div>
+    <div id="panel-categories" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Categories</h1></div>
+      <div style="text-align:center;padding:80px 0"><div style="font-size:4rem;margin-bottom:16px">🏷</div><h3>Manage Categories</h3></div>
+    </div>
+    <div id="panel-comments" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Comments</h1><span class="status-badge scheduled" style="font-size:0.85rem">7 pending moderation</span></div>
+      <div style="text-align:center;padding:80px 0"><div style="font-size:4rem;margin-bottom:16px">💬</div><h3>Comment Moderation Queue</h3></div>
+    </div>
+    <div id="panel-media" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Media Library</h1></div>
+      <div style="text-align:center;padding:80px 0"><div style="font-size:4rem;margin-bottom:16px">🖼</div><h3>Media Library</h3></div>
+    </div>
+    <div id="panel-subscribers" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Subscribers</h1></div>
+      <div style="text-align:center;padding:80px 0"><div style="font-size:4rem;margin-bottom:16px">📧</div><h3>18,412 Subscribers</h3></div>
+    </div>
+    <div id="panel-analytics" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Analytics</h1></div>
+      <div style="text-align:center;padding:80px 0"><div style="font-size:4rem;margin-bottom:16px">📈</div><h3>Analytics Dashboard</h3></div>
+    </div>
+    <div id="panel-settings" class="admin-panel hidden">
+      <div class="admin-topbar"><h1>Settings</h1></div>
+      <div style="text-align:center;padding:80px 0"><div style="font-size:4rem;margin-bottom:16px">⚙️</div><h3>Site Settings</h3></div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    window.initAdmin();
+    // Word count → reading time
+    document.getElementById('editorArea')?.addEventListener('input', function() {
+      const words = this.value.trim().split(/\s+/).filter(Boolean).length;
+      const mins = Math.max(1, Math.ceil(words / 200));
+      const el = document.getElementById('readTime');
+      if (el) el.textContent = mins;
+    });
+  });
+
+  function handleTagInput(e) {
+    if (e.key !== 'Enter' && e.key !== ',') return;
+    e.preventDefault();
+    const val = e.target.value.trim().replace(',', '');
+    if (!val) return;
+    const pill = document.createElement('span');
+    pill.className = 'tag-pill';
+    pill.innerHTML = `${val}<span class="tag-remove" onclick="this.parentElement.remove()">×</span>`;
+    e.target.parentElement.insertBefore(pill, e.target);
+    e.target.value = '';
+  }
+</script>
+</body>
+</html>
